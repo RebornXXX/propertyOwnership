@@ -90,7 +90,7 @@ public final class LandTransfer implements ContractInterface {
 	     * @return the Property found on the ledger if there was one
 	     */
     	@Transaction()
-	    public Land queryCarById(final Context ctx, final String id) {
+	    public Land queryLandById(final Context ctx, final String id) {
 	        ChaincodeStub stub = ctx.getStub();
 	        String LandState = stub.getStringState(id);
  
@@ -135,4 +135,3 @@ public final class LandTransfer implements ContractInterface {
    	        return newLand;
    	    } 
 }
-
