@@ -6,7 +6,7 @@ import org.hyperledger.fabric.contract.annotation.Property;
 import java.util.Objects;
  
 @DataType()
-public final class Land {
+public final class Home {
  
 	@Property()
 	private final String id;
@@ -35,7 +35,7 @@ public final class Land {
 		return value;
 	}
  
-	public Land(@JsonProperty("id") final String id, @JsonProperty("model") final String model, @JsonProperty("owner") final String owner,
+	public Home(@JsonProperty("id") final String id, @JsonProperty("model") final String model, @JsonProperty("owner") final String owner,
 			@JsonProperty("value") final String value) {
 		this.id = id;
 		this.location = model;
@@ -53,7 +53,7 @@ public final class Land {
 			return false;
 		}
  
-		Land other = (Land) obj;
+		Home other = (Home) obj;
  
 		return Objects.deepEquals(new String[] { getId(), getLocation(), getOwner(), getValue() },
 				new String[] { other.getId(), other.getLocation(), other.getOwner(), other.getValue() });

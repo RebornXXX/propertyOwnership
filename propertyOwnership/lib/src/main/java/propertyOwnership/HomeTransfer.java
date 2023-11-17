@@ -20,7 +20,7 @@ import com.owlike.genson.Genson;
  
  
 @Default
-public final class LandTransfer implements ContractInterface {
+public final class HomeTransfer implements ContractInterface {
  
 	private final Genson genson = new Genson();
 	private enum PropertyOwnershipErrors {
@@ -39,46 +39,46 @@ public final class LandTransfer implements ContractInterface {
     	
         ChaincodeStub stub= ctx.getStub();
         
-        Land Land = new Land("1", "HSR","Shivam","1200");
+        Home Home = new Home("1", "HSR","Shivam","1200");
         
-        String LandState = genson.serialize(Land);
+        String HomeState = genson.serialize(Home);
         
-        stub.putStringState("1", LandState);
+        stub.putStringState("1", HomeState);
     }
     
     
     /**
-     * Add new Land on the ledger.
+     * Add new Home on the ledger.
      *
      * @param ctx the transaction context
-     * @param id the key for the new Land
-     * @param model the model of the new Land
-     * @param ownername the owner of the new Land
-     * @param value the value of the new Land
-     * @return the created Land
+     * @param id the key for the new Home
+     * @param model the model of the new Home
+     * @param ownername the owner of the new Home
+     * @param value the value of the new Home
+     * @return the created Home
      */
 	
     @Transaction()
-    public Land addNewLand(final Context ctx, final String id, final String location,
+    public Home addNewHome(final Context ctx, final String id, final String location,
             final String ownername, final String value) {
         
     	ChaincodeStub stub = ctx.getStub();
  
-        String LandState = stub.getStringState(id);
+        String HomeState = stub.getStringState(id);
         
-        if (!LandState.isEmpty()) {
+        if (!HomeState.isEmpty()) {
             String errorMessage = String.format("Property %s already exists", id);
             System.out.println(errorMessage);
             throw new ChaincodeException(errorMessage, PropertyOwnershipErrors.Property_NOT_FOUND.toString());
         }
         
-        Land Land = new Land(id, location, ownername,value);
+        Home Home = new Home(id, location, ownername,value);
         
-        LandState = genson.serialize(Land);
+        HomeState = genson.serialize(Home);
         
-        stub.putStringState(id, LandState); 
+        stub.putStringState(id, HomeState); 
         
-        return Land;
+        return Home;
     }
  
  
@@ -90,22 +90,22 @@ public final class LandTransfer implements ContractInterface {
 	     * @return the Property found on the ledger if there was one
 	     */
     	@Transaction()
-	    public Land queryLandById(final Context ctx, final String id) {
+	    public Home queryHomeById(final Context ctx, final String id) {
 	        ChaincodeStub stub = ctx.getStub();
-	        String LandState = stub.getStringState(id);
+	        String HomeState = stub.getStringState(id);
  
-	        if (LandState.isEmpty()) {
+	        if (HomeState.isEmpty()) {
 	            String errorMessage = String.format("Property %s does not exist", id);
 	            System.out.println(errorMessage);
 	            throw new ChaincodeException(errorMessage, PropertyOwnershipErrors.Property_NOT_FOUND.toString());
 	        }
 	        
-	        Land Land = genson.deserialize(LandState, Land.class);
-	        return Land;
+	        Home Home = genson.deserialize(HomeState, Home.class);
+	        return Home;
 	    }
     	
         /**
-   	     * Changes the owner of a Land on the ledger.
+   	     * Changes the owner of a Home on the ledger.
    	     *
    	     * @param ctx the transaction context
    	     * @param id the key
@@ -113,25 +113,25 @@ public final class LandTransfer implements ContractInterface {
    	     * @return the updated Property
    	     */
    	    @Transaction()
-   	    public Land changeLandOwnership(final Context ctx, final String id, final String newLandOwner) {
+   	    public Home changeHomeOwnership(final Context ctx, final String id, final String newHomeOwner) {
    	        ChaincodeStub stub = ctx.getStub();
  
-   	        String LandState = stub.getStringState(id);
+   	        String HomeState = stub.getStringState(id);
  
-   	        if (LandState.isEmpty()) {
+   	        if (HomeState.isEmpty()) {
    	            String errorMessage = String.format("Property %s does not exist", id);
    	            System.out.println(errorMessage);
    	            throw new ChaincodeException(errorMessage, PropertyOwnershipErrors.Property_NOT_FOUND.toString());
    	        }
  
-   	        Land Land = genson.deserialize(LandState, Land.class);
+   	        Home Home = genson.deserialize(HomeState, Home.class);
  
-   	        Land newLand = new Land(Land.getId(), Land.getLocation(), newLandOwner, Land.getValue());
+   	        Home newHome = new Home(Home.getId(), Home.getLocation(), newHomeOwner, Home.getValue());
    	        
-   	        String newLandState = genson.serialize(newLand);
+   	        String newHomeState = genson.serialize(newHome);
    	        
-   	        stub.putStringState(id, newLandState);
+   	        stub.putStringState(id, newHomeState);
  
-   	        return newLand;
+   	        return newHome;
    	    } 
 }
