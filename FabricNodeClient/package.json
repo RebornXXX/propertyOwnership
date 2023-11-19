@@ -1,0 +1,26 @@
+{
+  "name": "fabricnodeclient",
+  "version": "1.0.0",
+  "description": "node client to access fabric chaincode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"test\""
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fabric-ca-client": "^2.1.0",
+    "fabric-client": "^1.4.8",
+    "fabric-common": "^1.4.10",
+    "fabric-network": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RebornXXX/propertyOwnership.git"
+  },
+  "author": "Shivam Ambadkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RebornXXX/propertyOwnership/issues"
+  },
+  "homepage": "https://github.com/RebornXXX/propertyOwnership#readme"
+}
